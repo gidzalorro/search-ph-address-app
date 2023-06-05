@@ -2,7 +2,6 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, E
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PhLocationsService } from './ph-locations.service';
 import { HttpParams } from '@angular/common/http';
-import { fromEvent } from 'rxjs';
 import { AnimationOptions } from 'ngx-lottie';
 import { WeatherService } from './weather.service';
 
@@ -12,7 +11,7 @@ import { WeatherService } from './weather.service';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit, AfterViewInit{
+export class AppComponent implements OnInit{
   title = 'search-ph-address-app';
   addressForm!:FormGroup;
   displayForm!:boolean;
@@ -61,7 +60,6 @@ export class AppComponent implements OnInit, AfterViewInit{
     width: '25em'
   };
 
-  @ViewChild('phLocationsModal') modal!: ElementRef;
   @ViewChild('mapFrame') mapFrame!: ElementRef;
 
   constructor(
@@ -102,36 +100,6 @@ export class AppComponent implements OnInit, AfterViewInit{
       barangay: [{value:'', disabled: true}, [Validators.required]]
     })
   }
-
-  ngAfterViewInit(){
-      //this event will trigger once the modal is closed
-      fromEvent(this.modal.nativeElement, 'hidden.bs.modal').subscribe( __ => {
-        if(this.isRegionSelected){
-          this.tempAddressObj['regionData'] = this.selectedRegion;
-          this.tempAddressObj['regionIndex'] = this.regionIndex;
-          this.isRegionSelected = !this.isRegionSelected;
-        }
-        if(this.isProvinceSelected){
-          this.tempAddressObj['provinceData'] = this.selectedProvince;
-          this.tempAddressObj['provinceIndex'] = this.provinceIndex; 
-          this.isProvinceSelected = !this.isProvinceSelected;
-        }
-        if(this.isCitySelected){
-          this.tempAddressObj['cityData'] = this.selectedCity;
-          this.tempAddressObj['cityIndex'] = this.cityIndex; 
-          this.isCitySelected = !this.isCitySelected;
-        }
-        if(this.isBarangaySelected){
-          this.tempAddressObj['barangayData'] = this.selectedBarangay;
-          this.tempAddressObj['barangayIndex'] = this.barangayIndex; 
-          this.isBarangaySelected = !this.isBarangaySelected;
-        }
-        this.hasMorePages = false;
-        this.scrollPage = 2;
-        this.changeRef.detectChanges();
-      });
-  }
- 
 
   getHttpParams(options:any){
     const params = new HttpParams({fromObject:options});
