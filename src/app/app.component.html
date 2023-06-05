@@ -1,0 +1,178 @@
+<div class="page container-fluid d-flex justify-content-center align-items-center">
+
+  <div class="content">
+    <section class="title d-flex flex-column justify-content-end">
+      <h1>SEARCH PH ADDRESS</h1>
+    </section>
+    <section class="body d-flex flex-column">
+        <div class="switch-btn">
+          <div class="d-flex justify-content-end align-items-center my-2 mx-2 px-2">
+            <ng-lottie *ngIf="!isMapLoaded && !showSelection()"
+              [styles]="lottieStyles"
+              [options]="lottieOptions">
+            </ng-lottie>
+            <div *ngIf="!isObjEmpty(weatherData) && isMapLoaded && !showSelection()" class="weather" title="Weather in {{weatherData.location}}">
+              <img src="https:{{weatherData.icon}}" alt="weather icon">
+              <span>{{weatherData.details}}</span>
+            </div>
+            <div *ngIf="showSelection()" class="selection-header">
+              <h4>{{modalTitle}}</h4>
+            </div>
+            <button [disabled]="(displayForm && !isMapLoaded) || !isMapLoaded" type="button" (click)="this.displayForm = !this.displayForm">
+              <div [ngClass]="toggleButton()">
+                <i *ngIf="!displayForm && isMapLoaded" title="Show form" class="bi bi-box-arrow-down my-2 px-2"></i>
+                <i *ngIf="displayForm || !isMapLoaded" title="Hide form" class="bi bi-box-arrow-in-up my-2 px-2"></i>
+              </div>
+            </button>
+          </div>         
+        </div>
+        <div class="box">
+          <div [hidden]="!displayForm" class="form" [ngClass]="toggleForm()">
+            <form class="form-body d-flex flex-column justify-content-center mx-2" [formGroup]="addressForm" (ngSubmit)="submitForm()">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="form-floating my-3 mx-2">
+                          <input title="Specify bldg number, block, lot, street, etc." 
+                            type="text" class="form-control" id="floatingAddress" 
+                            placeholder="Address" formControlName="address">
+                          <label for="floatingAddress">Address</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                    <div class="input-group my-3 px-2">
+                      <div class="form-floating">
+                          <input title={{regionTitle}} type="text" class="form-control" id="floatingRegion" placeholder="Region" formControlName="region">               
+                          <label for="floatingRegion">Region</label>
+                      </div>
+                      <!-- <button type="button" (click)="showRegion()" data-bs-toggle="modal" data-bs-target="#phLocationsModal">
+                          <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
+                      </button>  -->
+                      <button type="button" (click)="showRegion()">
+                        <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
+                      </button>                             
+                    </div> 
+                </div>
+                <div class="col-6">
+                    <div class="input-group my-3 px-2">
+                      <div class="form-floating">
+                          <input title={{provinceTitle}} type="text" class="form-control" id="floatingProvince" placeholder="Province" formControlName="province">               
+                          <label for="floatingProvince">Province</label>
+                      </div>
+                      <!-- <button type="button" (click)="showProvince()" data-bs-toggle="modal" data-bs-target="#phLocationsModal">
+                          <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
+                      </button>  -->
+                      <button type="button" (click)="showProvince()">
+                        <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
+                      </button>                             
+                    </div> 
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                    <div class="input-group my-3 px-2">
+                      <div class="form-floating">
+                          <input title={{cityTitle}} type="text" class="form-control" id="floatingCity" placeholder="City/Municipality" formControlName="city">               
+                          <label for="floatingCity">City/Municipality</label>
+                      </div>
+                      <!-- <button type="button" (click)="showCity()" data-bs-toggle="modal" data-bs-target="#phLocationsModal">
+                          <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
+                      </button>  -->
+                      <button type="button" (click)="showCity()">
+                        <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
+                      </button>                              
+                    </div> 
+                </div>
+                <div class="col-6">
+                    <div class="input-group my-3 px-2">
+                      <div class="form-floating">
+                        <input title={{barangayTitle}} type="text" class="form-control" id="floatingBarangay" placeholder="Barangay" formControlName="barangay">
+                        <label for="floatingBarangay">Barangay</label>
+                      </div>
+                      <!-- <button type="button" (click)="showBarangay()" data-bs-toggle="modal" data-bs-target="#phLocationsModal">
+                          <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
+                      </button> -->
+                      <button type="button" (click)="showBarangay()">
+                        <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
+                      </button>                               
+                    </div> 
+                </div>
+              </div>
+              <div class="form-footer d-flex justify-content-center px-2">
+                <button type="button" class="clear mx-3 my-1 py-2 px-3" (click)="resetForm()">Clear</button>
+                <button [disabled]="disableForm()" type="submit" class="search mx-3 my-1 py-2 px-3">Search</button>
+              </div>
+              <div *ngIf="isMapLoaded" class="form-credits d-flex justify-content-center">
+                <span>Video Credits: Tourism Philippines</span>
+              </div>
+            </form>
+            <video *ngIf="isMapLoaded" src="/assets/video/ph_tourism.mp4" muted autoplay loop></video>
+          </div>
+          <div *ngIf="showSelection()" class="selection" [ngClass]="toggleForm()">
+            <div class="selection-body"
+              infinite-scroll
+              [scrollWindow]="false"
+              (scrolled)="modalScroll()">
+              <div *ngIf="!modalEmptyBody" class="row px-2 mx-2 py-3">
+                <span *ngIf="modalData.length === 0" class="loader"></span>
+                <div class="col-6 selection-data" [ngClass]="addClass(i)" 
+                *ngFor="let data of modalData; let i = index" 
+                (click)="modalDataSelected(data, i)">
+                      {{data.name}}
+                </div>
+              </div>
+              <div *ngIf="modalEmptyBody" class="row px-2 mx-2 py-3">
+                <span class="empty-section-body">{{modalEmptyBody}}</span>
+              </div>
+            </div>
+            <div class="selection-footer d-flex justify-content-end my-3 mx-4">
+              <button class="cancel mx-2 my-1 py-2 px-3" type="button" (click)="cancelSelection()">Cancel</button>
+              <button [disabled]="!isSelectionConfirm" class="confirm mx-2 my-1 py-2 px-3" type="button" (click)="confirmSelection()">OK</button>
+            </div>
+          </div>
+          <div [hidden]="displayForm" [ngClass]="toggleForm()" class="map">
+            <span *ngIf="!isMapLoaded" class="loader"></span>
+            <iframe 
+              #mapFrame
+              (load)="checkMapIfLoaded()"
+              title="map"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              [src]="googleMapUrlFinal | safe: 'resourceUrl'">
+            </iframe>
+          </div>
+        </div>  
+    </section>
+    <div class="modal fade" #phLocationsModal id="phLocationsModal" tabindex="-1" aria-labelledby="phLocationsLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="phLocationsLabel">{{modalTitle}}</h1>
+            <button type="button" class="btn-close mx-1 px-3" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body"
+            infinite-scroll
+            [scrollWindow]="false"
+            (scrolled)="modalScroll()">
+            <div *ngIf="!modalEmptyBody" class="row">
+              <span *ngIf="modalData.length === 0" class="loader"></span>
+              <div class="col-6 modal-data" [ngClass]="addClass(i)" 
+              *ngFor="let data of modalData; let i = index" 
+              (click)="modalDataSelected(data, i)">
+                    {{data.name}}
+              </div>
+            </div>
+            <div *ngIf="modalEmptyBody" class="row">
+              <span class="empty-modal-body">{{modalEmptyBody}}</span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="!isSelectionConfirm" class="mx-5 my-1 py-2 px-3" type="button" data-bs-dismiss="modal" (click)="confirmSelection()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+$color-1: #f8efe7;
+$color-2: #ffffff ;
+$color-3: #000000;
+$color-4: #010203;
+$color-5: #014122;
+$color-6: #018141; //philippine green
+$color-7: #ec9351;
+$color-8: #ff833b;
+$color-9: #e95c42;
+$color-10: #dd452a;
+
+$color-11: #ababab;
+$color-12: #6f6e6e;
+
+$white: #ffffff ;
+$black: #000000;
+$rich-black: #010203;
+$gold: #d4af37;
+$golden-yellow: #fccb06;
+$soft-orange: #ffd580;
+$cool-white: #f4fdff;
+$blue-1: #150578;
+$blue-2: #006e90;
+$blue-3: #274690;
+$blue-4: #1c448e;
+$burgundy: #800020;
+$canberry: #950714;
+
+body{
+    height: 100vh;
+    background-image: linear-gradient(to top right, $blue-1, $blue-4, $blue-2); 
+}
+
+.up{
+    animation: goingup 0.5s;
+}
+
+.down{
+    animation: goingdown 0.5s;
+}
+
+
+@keyframes goingup {
+    from{
+        transform: translateY(50%);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+
+@keyframes goingdown {
+    from{
+        transform: translateY(-50%);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+
+.loader {
+    animation: rotate 1s infinite;
+    height: 50px;
+    width: 50px;
+}
+
+.loader:before,
+.loader:after {
+    border-radius: 50%;
+    content: "";
+    display: block;
+    height: 20px;
+    width: 20px;
+}
+.loader:before {
+    animation: ball1 1s infinite;
+    background-color: $blue-3;
+    box-shadow: 30px 0 0 $canberry;
+    margin-bottom: 10px;
+}
+.loader:after {
+    animation: ball2 1s infinite;
+    background-color: $canberry;
+    box-shadow: 30px 0 0 $blue-3;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg) scale(0.8) }
+    50% { transform: rotate(360deg) scale(1.2) }
+    100% { transform: rotate(720deg) scale(0.8) }
+}
+
+@keyframes ball1 {
+    0% {
+      box-shadow: 30px 0 0 $golden-yellow;
+    }
+    50% {
+      box-shadow: 0 0 0 $golden-yellow;
+      margin-bottom: 0;
+      transform: translate(15px, 15px);
+    }
+    100% {
+      box-shadow: 30px 0 0 $golden-yellow;
+      margin-bottom: 10px;
+    }
+}
+
+@keyframes ball2 {
+    0% {
+      box-shadow: 30px 0 0 $color-6;
+    }
+    50% {
+      box-shadow: 0 0 0 $color-6;
+      margin-top: -20px;
+      transform: translate(15px, 15px);
+    }
+    100% {
+      box-shadow: 30px 0 0 $color-6;
+      margin-top: 0;
+    }
+}
