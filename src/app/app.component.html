@@ -16,7 +16,7 @@
               <span>{{weatherData.details}}</span>
             </div>
             <div *ngIf="showSelection()" class="selection-header">
-              <h4>{{modalTitle}}</h4>
+              <h4>{{selectionTitle}}</h4>
             </div>
             <button [disabled]="(displayForm && !isMapLoaded) || !isMapLoaded" type="button" (click)="this.displayForm = !this.displayForm">
               <div [ngClass]="toggleButton()">
@@ -113,17 +113,17 @@
             <div class="selection-body"
               infinite-scroll
               [scrollWindow]="false"
-              (scrolled)="modalScroll()">
-              <div *ngIf="!modalEmptyBody" class="row px-2 mx-2 py-3">
-                <span *ngIf="modalData.length === 0" class="loader"></span>
+              (scrolled)="selectionScroll()">
+              <div *ngIf="!selectionEmptyBody" class="row px-2 mx-2 py-3">
+                <span *ngIf="selectionData.length === 0" class="loader"></span>
                 <div class="col-6 selection-data" [ngClass]="addClass(i)" 
-                *ngFor="let data of modalData; let i = index" 
-                (click)="modalDataSelected(data, i)">
+                *ngFor="let data of selectionData; let i = index" 
+                (click)="selectionDataSelected(data, i)">
                       {{data.name}}
                 </div>
               </div>
-              <div *ngIf="modalEmptyBody" class="row px-2 mx-2 py-3">
-                <span class="empty-section-body">{{modalEmptyBody}}</span>
+              <div *ngIf="selectionEmptyBody" class="row px-2 mx-2 py-3">
+                <span class="empty-section-body">{{selectionEmptyBody}}</span>
               </div>
             </div>
             <div class="selection-footer d-flex justify-content-end my-3 mx-4">
@@ -145,34 +145,5 @@
           </div>
         </div>  
     </section>
-    <div class="modal fade" #phLocationsModal id="phLocationsModal" tabindex="-1" aria-labelledby="phLocationsLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="phLocationsLabel">{{modalTitle}}</h1>
-            <button type="button" class="btn-close mx-1 px-3" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body"
-            infinite-scroll
-            [scrollWindow]="false"
-            (scrolled)="modalScroll()">
-            <div *ngIf="!modalEmptyBody" class="row">
-              <span *ngIf="modalData.length === 0" class="loader"></span>
-              <div class="col-6 modal-data" [ngClass]="addClass(i)" 
-              *ngFor="let data of modalData; let i = index" 
-              (click)="modalDataSelected(data, i)">
-                    {{data.name}}
-              </div>
-            </div>
-            <div *ngIf="modalEmptyBody" class="row">
-              <span class="empty-modal-body">{{modalEmptyBody}}</span>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button [disabled]="!isSelectionConfirm" class="mx-5 my-1 py-2 px-3" type="button" data-bs-dismiss="modal" (click)="confirmSelection()">OK</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>  
 </div>

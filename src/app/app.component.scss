@@ -100,7 +100,6 @@ button{
 
 .selection-data{
     box-shadow: 0 2px 5px $color-12;
-    //border-radius: 0.5rem;
     background-color: $white;
     color: $blue-2;
 
@@ -117,36 +116,11 @@ button{
     color: $canberry;
 }
 
-.section-footer{
-    // & button:first-child{
-    //     border-radius: 1em;
-    //     color: $cool-white;
-    //     background-color: $blue-2;
-    //     box-shadow: 0 2px 5px $blue-3;
-    //     &:hover:enabled{
-    //         color: $white;
-    //         box-shadow: inset 0 2px 5px $blue-4;
-    //     }
-    // }
-    // & button:last-child{
-    //     border-radius: 1em;
-    //     color: $cool-white;
-    //     background-color: $blue-2;
-    //     box-shadow: 0 2px 5px $blue-3;
-    //     &:hover:enabled{
-    //         color: $white;
-    //         box-shadow: inset 0 2px 5px $blue-4;
-    //     }
-    // }
-}
-
 .form{
     position: absolute;
     z-index: 2;
     height: 100%;
     width: 100%;
-    // margin-top: 1em;
-    // margin-bottom: 1em;
     background-color: $white;
 
     & form{
@@ -163,7 +137,6 @@ button{
     & video{
         position: absolute;
         left: -5.2em;
-        //top: -1em;
         margin: 0 0 !important;
         z-index: 3;
         height: 100%;
@@ -257,32 +230,15 @@ button{
             box-shadow: inset 0 2px 5px $black;
         }
     }
-
-    // & i {
-    //     width: inherit;
-    //     font-size: 1.5em;
-    //     background-color: $gold;
-    //     box-shadow: 0 2px 5px $black;
-    //     border-radius: 0.3em;
-    //     &:hover{
-    //         cursor: pointer;
-    //         background-color: $golden-yellow;
-    //         box-shadow: inset 0 2px 5px $black;
-    //     }
-    // }
-
 }
 
 .box{
     position: relative;
     height: 90%;
     width: 100%;
-    //background-image: linear-gradient(to top, $soft-orange, $white); 
     background-color: $white;
     border: none;
 }
-
-
 
 .form-footer{
     margin-top: 3em;
@@ -323,87 +279,4 @@ button{
     color: $blue-2;
     font-weight: 700;
     font-size: 0.5em;
-}
-
-.modal-header{
-    .modal-title{
-        color: $rich-black;
-    }
-
-    button{
-        border-radius: 0.3em;
-        background-color: $cool-white;
-        box-shadow: 0 2px 5px $black;
-        &:hover{
-            background-color: $white;
-            box-shadow: inset 0 2px 5px $black;
-        }
-    }
-}
-
-
-.modal-content{
-    // background-image: linear-gradient(to top right, $gold, $soft-orange, $gold);
-    background-color: $gold;
-    box-shadow: 0 2px 5px $rich-black;
-}
-
-.modal-body{
-    //overflow-y: hidden;
-    height: 30vh;
-    background-color: $white;
-    box-shadow: 0 -1px 5px $color-12;
-    position: relative;
-
-    & .loader{
-        position: absolute;
-        left: 0; 
-        right: 0; 
-        top: 0;
-        bottom: 0;
-        margin: auto auto; 
-    }
-
-    /* Hide scrollbar for IE, Edge and Firefox */
-    // -ms-overflow-style: none;  /* IE and Edge */
-    // scrollbar-width: none;  /* Firefox */
-      
-}
-
-.modal-footer{
-    button{
-        border-radius: 1em;
-        color: $cool-white;
-        background-color: $blue-2;
-        box-shadow: 0 2px 5px $blue-3;
-        &:hover:enabled{
-            color: $white;
-            box-shadow: inset 0 2px 5px $blue-4;
-        }
-        
-    }
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-// .modal-body::-webkit-scrollbar {
-//     display: none;
-// }
-
-.modal-data{
-    box-shadow: 0 2px 5px $color-12;
-    //border-radius: 0.5rem;
-    background-color: $white;
-    color: $blue-2;
-
-    &:hover, &.active{
-        cursor: pointer;
-        color: $cool-white;
-        background-color: $blue-2;
-    }
-
-}
-
-.empty-modal-body{
-    font-size: 1.2rem;
-    font-weight: 500;
 }

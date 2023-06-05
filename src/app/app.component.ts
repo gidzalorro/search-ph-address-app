@@ -40,9 +40,9 @@ export class AppComponent implements OnInit, AfterViewInit{
   cityTitle!:string;
   barangayTitle!:string;
 
-  modalTitle!:string;
-  modalEmptyBody!:string;
-  modalData!:any[];
+  selectionTitle!:string;
+  selectionEmptyBody!:string;
+  selectionData!:any[];
   hasMorePages!:boolean;
   scrollPage!:number;
 
@@ -79,14 +79,14 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.isCitySelected  = false;
     this.isBarangaySelected = false;
     this.isSelectionConfirm = false;
-    this.modalData = [];
+    this.selectionData = [];
     this.tempAddressObj = {};
     this.isMapLoaded = false;
     this.googleMapUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.NG_GOOGLE_TOKEN}&q=`;
     this.googleMapUrlFinal = '';
     this.hasMorePages = false;
     this.scrollPage = 2;
-    this.modalTitle = '';
+    this.selectionTitle = '';
 
     this.regionTitle = this.defaultTitle;
     this.provinceTitle = this.defaultTitle;
@@ -141,15 +141,15 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   showRegion(){
-    this.modalData = [];
+    this.selectionData = [];
     this.displayForm = false;
     this.isSelectionConfirm = this.addressForm.controls['region'].value ? true: false;
-    this.modalTitle = 'Select Region';
-    this.modalEmptyBody = '';
+    this.selectionTitle = 'Select Region';
+    this.selectionEmptyBody = '';
     this.isRegionSelected = !this.isRegionSelected;
     this.phLocSrvc.getRegions().subscribe( res => {
       if(res){
-        this.modalData = res.data;
+        this.selectionData = res.data;
         this.changeRef.detectChanges();
       }
       
@@ -158,20 +158,20 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   showProvince(){
-    this.modalData = [];
+    this.selectionData = [];
     this.displayForm = false;
     this.isSelectionConfirm = this.addressForm.controls['province'].value ? true: false;
-    this.modalTitle = 'Select Province';
-    this.modalEmptyBody = 'Please select region first!';
+    this.selectionTitle = 'Select Province';
+    this.selectionEmptyBody = 'Please select region first!';
     this.isProvinceSelected = !this.isProvinceSelected;
     let objParams:any = {}
     if(this.selectedRegion){
-      this.modalEmptyBody = '';
+      this.selectionEmptyBody = '';
       objParams['region_code'] = this.selectedRegion.id;
       this.phLocSrvc.getProvinces(this.getHttpParams(objParams)).subscribe( res => {
-        this.modalData = res.data;
-        if(this.modalData.length === 0){
-          this.modalEmptyBody = 'No record available.';
+        this.selectionData = res.data;
+        if(this.selectionData.length === 0){
+          this.selectionEmptyBody = 'No record available.';
         }
         this.changeRef.detectChanges();
       })
@@ -181,24 +181,24 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   showCity(){
-    this.modalData = [];
+    this.selectionData = [];
     this.displayForm = false;
     this.isSelectionConfirm = this.addressForm.controls['city'].value ? true: false;
-    this.modalTitle = 'Select City';
-    this.modalEmptyBody = 'Please select province first!';
+    this.selectionTitle = 'Select City';
+    this.selectionEmptyBody = 'Please select province first!';
     this.isCitySelected = !this.isCitySelected;
     let objParams:any = {}
     if(this.selectedProvince && this.selectedRegion){
-      this.modalEmptyBody = '';
+      this.selectionEmptyBody = '';
       objParams['province_code'] = this.selectedProvince.id;
       objParams['region_code'] = this.selectedRegion.id;
       objParams['limit'] = 40;
       this.phLocSrvc.getCities(this.getHttpParams(objParams))
       .subscribe( res => {
         if(res){
-          this.modalData = res.data;
-          if(this.modalData.length === 0){
-            this.modalEmptyBody = 'No record available.';
+          this.selectionData = res.data;
+          if(this.selectionData.length === 0){
+            this.selectionEmptyBody = 'No record available.';
           }
           this.changeRef.detectChanges();
         }       
@@ -209,11 +209,11 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   showBarangay(){
-    this.modalData = [];
+    this.selectionData = [];
     this.displayForm = false;
     this.isSelectionConfirm = this.addressForm.controls['barangay'].value ? true: false;
-    this.modalTitle = 'Select Barangay';
-    this.modalEmptyBody = 'Please select city/municipality first!';
+    this.selectionTitle = 'Select Barangay';
+    this.selectionEmptyBody = 'Please select city/municipality first!';
     this.isBarangaySelected = !this.isBarangaySelected;
     let objParams:any = {}
     if(this.selectedProvince && this.selectedRegion && this.selectedCity){
@@ -221,16 +221,16 @@ export class AppComponent implements OnInit, AfterViewInit{
       objParams['region_code'] = this.selectedRegion.id;
       objParams['city_code'] = this.selectedCity.id;
       objParams['limit'] = 40;
-      this.modalEmptyBody = '';
+      this.selectionEmptyBody = '';
       this.phLocSrvc.getBarangays(this.getHttpParams(objParams))
       .subscribe( res => {
         if(res){
-          this.modalData = res.data;
+          this.selectionData = res.data;
           if(res.totalPages > 1){
             this.hasMorePages = true;
           }
-          if(this.modalData.length === 0){
-            this.modalEmptyBody = 'No record available.';
+          if(this.selectionData.length === 0){
+            this.selectionEmptyBody = 'No record available.';
           }
           this.changeRef.detectChanges();
         }       
@@ -301,7 +301,7 @@ export class AppComponent implements OnInit, AfterViewInit{
     }
   }
 
-  modalDataSelected(data:any, index:number){
+  selectionDataSelected(data:any, index:number){
     this.isSelectionConfirm = true;
     if(this.isRegionSelected){
       this.tempAddressObj['regionData'] = data;
@@ -475,7 +475,7 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.scrollPage = 2;
   }
 
-  modalScroll(){
+  selectionScroll(){
     let objParams: any = {};
     if(this.hasMorePages && this.isCitySelected){
       objParams['limit'] = 40;
@@ -484,7 +484,7 @@ export class AppComponent implements OnInit, AfterViewInit{
       objParams['region_code'] = this.selectedRegion.id;
       this.phLocSrvc.getCities(this.getHttpParams(objParams))
       .subscribe( res => {
-        this.modalData = [...this.modalData, ...res.data];
+        this.selectionData = [...this.selectionData, ...res.data];
         if(this.scrollPage === res.totalPages){
           this.hasMorePages = false;
         }
@@ -500,7 +500,7 @@ export class AppComponent implements OnInit, AfterViewInit{
       objParams['page'] = this.scrollPage;
       this.phLocSrvc.getBarangays(this.getHttpParams(objParams))
       .subscribe( res => {
-        this.modalData = [...this.modalData, ...res.data];
+        this.selectionData = [...this.selectionData, ...res.data];
         if(this.scrollPage === res.totalPages){
           this.hasMorePages = false;
         }
