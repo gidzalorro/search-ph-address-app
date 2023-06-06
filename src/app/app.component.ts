@@ -4,6 +4,7 @@ import { PhLocationsService } from './ph-locations.service';
 import { HttpParams } from '@angular/common/http';
 import { AnimationOptions } from 'ngx-lottie';
 import { WeatherService } from './weather.service';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { WeatherService } from './weather.service';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, AfterViewInit{
   title = 'search-ph-address-app';
   addressForm!:FormGroup;
   displayForm!:boolean;
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit{
   googleMapUrl!:string;
   googleMapUrlFinal!:string;
   weatherData:any = {};
+  headerHeight!:number;
 
   lottieOptions: AnimationOptions = {    
     path: 'https://assets10.lottiefiles.com/packages/lf20_Wo6Vygm1p6.json' 
@@ -61,6 +63,8 @@ export class AppComponent implements OnInit{
   };
 
   @ViewChild('mapFrame') mapFrame!: ElementRef;
+  @ViewChild('header') header!: ElementRef;
+  @ViewChild('content') content!: ElementRef;
 
   constructor(
     private fb: FormBuilder, 
@@ -99,6 +103,11 @@ export class AppComponent implements OnInit{
       city: [{value:'', disabled: true}, [Validators.required]],
       barangay: [{value:'', disabled: true}, [Validators.required]]
     })
+  }
+
+  ngAfterViewInit(){
+    console.log(this.content.nativeElement.clientHeight);
+    //this.headerHeight = this.content.nativeElement.clientHeight;
   }
 
   getHttpParams(options:any){

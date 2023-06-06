@@ -1,11 +1,11 @@
 <div class="page container-fluid d-flex justify-content-center align-items-center">
 
-  <div class="content">
+  <div #content class="content">
     <section class="title d-flex flex-column justify-content-end">
       <h1>SEARCH PH ADDRESS</h1>
     </section>
     <section class="body d-flex flex-column">
-        <div class="switch-btn">
+        <div #header class="switch-btn">
           <div class="d-flex justify-content-end align-items-center my-2 mx-2 px-2">
             <ng-lottie *ngIf="!isMapLoaded && !showSelection()"
               [styles]="lottieStyles"
@@ -28,7 +28,8 @@
         </div>
         <div class="box">
           <div [hidden]="!displayForm" class="form" [ngClass]="toggleForm()">
-            <form class="form-body d-flex flex-column justify-content-center mx-2" [formGroup]="addressForm" (ngSubmit)="submitForm()">
+            <form class="form-body d-flex flex-column justify-content-center mx-2" 
+              [formGroup]="addressForm" (ngSubmit)="submitForm()">
               <div class="row">
                   <div class="col-12">
                       <div class="form-floating my-3 mx-2">
@@ -40,29 +41,23 @@
                   </div>
               </div>
               <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="input-group my-3 px-2">
                       <div class="form-floating">
                           <input title={{regionTitle}} type="text" class="form-control" id="floatingRegion" placeholder="Region" formControlName="region">               
                           <label for="floatingRegion">Region</label>
                       </div>
-                      <!-- <button type="button" (click)="showRegion()" data-bs-toggle="modal" data-bs-target="#phLocationsModal">
-                          <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
-                      </button>  -->
                       <button type="button" (click)="showRegion()">
                         <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
                       </button>                             
                     </div> 
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="input-group my-3 px-2">
                       <div class="form-floating">
                           <input title={{provinceTitle}} type="text" class="form-control" id="floatingProvince" placeholder="Province" formControlName="province">               
                           <label for="floatingProvince">Province</label>
                       </div>
-                      <!-- <button type="button" (click)="showProvince()" data-bs-toggle="modal" data-bs-target="#phLocationsModal">
-                          <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
-                      </button>  -->
                       <button type="button" (click)="showProvince()">
                         <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
                       </button>                             
@@ -70,29 +65,23 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="input-group my-3 px-2">
                       <div class="form-floating">
                           <input title={{cityTitle}} type="text" class="form-control" id="floatingCity" placeholder="City/Municipality" formControlName="city">               
                           <label for="floatingCity">City/Municipality</label>
                       </div>
-                      <!-- <button type="button" (click)="showCity()" data-bs-toggle="modal" data-bs-target="#phLocationsModal">
-                          <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
-                      </button>  -->
                       <button type="button" (click)="showCity()">
                         <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
                       </button>                              
                     </div> 
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <div class="input-group my-3 px-2">
                       <div class="form-floating">
                         <input title={{barangayTitle}} type="text" class="form-control" id="floatingBarangay" placeholder="Barangay" formControlName="barangay">
                         <label for="floatingBarangay">Barangay</label>
                       </div>
-                      <!-- <button type="button" (click)="showBarangay()" data-bs-toggle="modal" data-bs-target="#phLocationsModal">
-                          <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
-                      </button> -->
                       <button type="button" (click)="showBarangay()">
                         <i class="bi bi-geo-alt-fill mx-2 px-2"></i>
                       </button>                               

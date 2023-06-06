@@ -120,3 +120,73 @@ body{
       margin-top: 0;
     }
 }
+
+
+// extra Smaller devices
+@media (max-width: 539.99px) {
+    html{
+        font-size: 12px;
+    }
+    .content .body{
+        width:90vw !important;
+        //height:80vh !important;
+    }
+    .box{
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .form {
+        & form{
+            //top: 10em !important;
+            //height:100vh !important;
+            // overflow-x: hidden;
+            // overflow-y: auto;
+        }
+    }
+}
+
+// extra Smaller devices extended
+@media (min-width: 540px) { 
+    .content .body{
+        width:90vw !important;
+        //height:70vh !important;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) { 
+
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) { 
+    html{
+        font-size: 16px;
+    }
+}
+
+// Medium devices extended(tablets, 768px and up)
+@media (min-width: 900px) { 
+
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { 
+    .content .body{
+        width:600px !important;
+        //height:500px !important;
+    }
+}
+
+
+// X-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { 
+
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) { 
+
+}
+
