@@ -85,13 +85,14 @@ button{
 
     grid-area: 1 / 1 / 2 / 2;
 
-    // display: grid;
-    // grid-template-columns: 1fr;
-    // grid-template-rows: 3fr 1fr;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 4fr 1fr;
 
     & .selection-body{
-        //grid-area: 1 / 1 / 3 / -2;
-        height: 80%;
+        grid-area: 1 / 1 / 3 / 2;
+        //height: 80%;
+        //height: 55%;
         background-color: $white;
         box-shadow: 0 -1px 5px $color-12;
         position: relative;
@@ -106,6 +107,10 @@ button{
             bottom: 0;
             margin: auto auto; 
         }
+    }
+
+    & .selection-footer{
+        grid-area: 3 / 1 / 4 / 2;
     }
 
     & .row{

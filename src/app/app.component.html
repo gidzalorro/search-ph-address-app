@@ -102,9 +102,9 @@
               </div>
             </form>
             <div *ngIf="isMapLoaded" class="media">
-              <video #video [ngStyle]="{'left.px': videoDimensions.left, 
-                      'width': videoDimensions.width == 854 ? videoDimensions.width+'px' : videoDimensions.width+'%'}" 
-                      src="/assets/video/ph_tourism.mp4" muted autoplay loop>
+              <video #video [muted]="true" autoplay loop
+                      [ngStyle]="{'left.px': videoDimensions.left, 'width': videoDimensions.width == 854 ? videoDimensions.width+'px' : videoDimensions.width+'%'}" 
+                      src="/assets/video/ph_tourism.mp4">
               </video>
             </div>
             

@@ -115,17 +115,21 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(){
+    this.loadElementRef();
     fromEvent(window, 'resize').subscribe( _ => {
-      this.boxHeight = this.box.nativeElement.clientHeight;
-      this.boxWidth = this.box.nativeElement.clientWidth;
-      this.videoDimensions['left'] = (this.box.nativeElement.clientWidth - this.videoDimensions['width']) / 2;
-      if(this.videoDimensions['left'] > 0){
-        this.videoDimensions['left'] = 0;
-        this.videoDimensions['width'] = 100;
-      }
-      this.changeRef.detectChanges();
+      this.loadElementRef()
     })
-    
+  }
+
+  loadElementRef(){
+    this.boxHeight = this.box.nativeElement.clientHeight;
+    this.boxWidth = this.box.nativeElement.clientWidth;
+    this.videoDimensions['left'] = (this.box.nativeElement.clientWidth - this.videoDimensions['width']) / 2;
+    if(this.videoDimensions['left'] > 0){
+      this.videoDimensions['left'] = 0;
+      this.videoDimensions['width'] = 100;
+    }
+    this.changeRef.detectChanges();
   }
 
   getHttpParams(options:any){
