@@ -52,6 +52,15 @@ export class AppComponent implements OnInit, AfterViewInit{
   weatherData:any = {};
   headerHeight!:number;
 
+  boxHeight!:number;
+  boxWidth!:number;
+
+  videoDimensions: any = {
+    height: 480,
+    width: 854,
+    left: 0
+  }
+
   lottieOptions: AnimationOptions = {    
     path: 'https://assets10.lottiefiles.com/packages/lf20_Wo6Vygm1p6.json' 
   };
@@ -63,8 +72,8 @@ export class AppComponent implements OnInit, AfterViewInit{
   };
 
   @ViewChild('mapFrame') mapFrame!: ElementRef;
-  @ViewChild('header') header!: ElementRef;
-  @ViewChild('content') content!: ElementRef;
+  @ViewChild('box') box!: ElementRef;
+  @ViewChild('video') video!: ElementRef;
 
   constructor(
     private fb: FormBuilder, 
@@ -106,8 +115,17 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(){
-    console.log(this.content.nativeElement.clientHeight);
-    //this.headerHeight = this.content.nativeElement.clientHeight;
+    fromEvent(window, 'resize').subscribe( _ => {
+      this.boxHeight = this.box.nativeElement.clientHeight;
+      this.boxWidth = this.box.nativeElement.clientWidth;
+      this.videoDimensions['left'] = (this.box.nativeElement.clientWidth - this.videoDimensions['width']) / 2;
+      if(this.videoDimensions['left'] > 0){
+        this.videoDimensions['left'] = 0;
+        this.videoDimensions['width'] = 100;
+      }
+      this.changeRef.detectChanges();
+    })
+    
   }
 
   getHttpParams(options:any){
@@ -217,6 +235,15 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.changeRef.detectChanges();
   }
 
+  showHideForm(){
+    this.displayForm = !this.displayForm;
+    if(this.displayForm && this.isMapLoaded){
+      this.video.nativeElement.play();
+    }else{
+      this.video.nativeElement.pause();
+    }
+  }
+
   showSelection(){
     return (this.isRegionSelected || this.isProvinceSelected || this.isCitySelected || this.isBarangaySelected) 
             && !this.displayForm
@@ -229,12 +256,10 @@ export class AppComponent implements OnInit, AfterViewInit{
       up = false;
       down = false;
     }
-
     if(this.isMapLoaded){
       up = this.displayForm;
       down = !this.displayForm;
     }
-
     return {
       'up': up,
       'down': down
@@ -260,17 +285,14 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   addClass(index:number){
-    // let active = false;
     this.isDataSelected = false;
     if(((this.isRegionSelected && this.tempAddressObj['regionIndex'] === index)
       || (this.isProvinceSelected && this.tempAddressObj['provinceIndex'] === index) 
       || (this.isCitySelected && this.tempAddressObj['cityIndex'] === index) 
       || (this.isBarangaySelected && this.tempAddressObj['barangayIndex'] === index)) 
       && this.isSelectionConfirm){
-      //active = false;
       this.isDataSelected = true;
     }else{
-      //active = true;
       this.isDataSelected = false;
     }
     return {
@@ -427,9 +449,8 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.weather.getCurrentWeather(weatherQuery).subscribe(res => {
         if(res){
           this.weatherData['location'] = weatherQuery;
-          this.weatherData['temp'] = res.current.temp_c;
-          this.weatherData = { ...this.weatherData, ...res.current.condition} 
-          this.weatherData['details'] = `${this.weatherData.temp}°C ${this.weatherData.text}`;
+          this.weatherData['temp'] = `${res.current.temp_c}°C`;
+          this.weatherData = { ...this.weatherData, ...res.current.condition};
           this.changeRef.detectChanges();
         }        
     })

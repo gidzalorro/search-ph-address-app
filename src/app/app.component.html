@@ -1,11 +1,11 @@
 <div class="page container-fluid d-flex justify-content-center align-items-center">
 
-  <div #content class="content">
+  <div class="content">
     <section class="title d-flex flex-column justify-content-end">
       <h1>SEARCH PH ADDRESS</h1>
     </section>
     <section class="body d-flex flex-column">
-        <div #header class="switch-btn">
+        <div class="switch-btn">
           <div class="d-flex justify-content-end align-items-center my-2 mx-2 px-2">
             <ng-lottie *ngIf="!isMapLoaded && !showSelection()"
               [styles]="lottieStyles"
@@ -13,12 +13,17 @@
             </ng-lottie>
             <div *ngIf="!isObjEmpty(weatherData) && isMapLoaded && !showSelection()" class="weather" title="Weather in {{weatherData.location}}">
               <img src="https:{{weatherData.icon}}" alt="weather icon">
-              <span>{{weatherData.details}}</span>
+              <div class="d-none d-sm-inline">
+                <span>{{weatherData.temp}} {{weatherData.text}}</span>
+              </div>
+              <div class="d-inline d-sm-none">
+                <span>{{weatherData.temp}}</span>
+              </div>            
             </div>
             <div *ngIf="showSelection()" class="selection-header">
               <h4>{{selectionTitle}}</h4>
             </div>
-            <button [disabled]="(displayForm && !isMapLoaded) || !isMapLoaded" type="button" (click)="this.displayForm = !this.displayForm">
+            <button [disabled]="(displayForm && !isMapLoaded) || !isMapLoaded" type="button" (click)="showHideForm()">
               <div [ngClass]="toggleButton()">
                 <i *ngIf="!displayForm && isMapLoaded" title="Show form" class="bi bi-box-arrow-down my-2 px-2"></i>
                 <i *ngIf="displayForm || !isMapLoaded" title="Hide form" class="bi bi-box-arrow-in-up my-2 px-2"></i>
@@ -26,7 +31,7 @@
             </button>
           </div>         
         </div>
-        <div class="box">
+        <div #box class="box" [ngStyle]="{'grid-auto-rows.px': boxHeight}">
           <div [hidden]="!displayForm" class="form" [ngClass]="toggleForm()">
             <form class="form-body d-flex flex-column justify-content-center mx-2" 
               [formGroup]="addressForm" (ngSubmit)="submitForm()">
@@ -96,7 +101,13 @@
                 <span>Video Credits: Tourism Philippines</span>
               </div>
             </form>
-            <video *ngIf="isMapLoaded" src="/assets/video/ph_tourism.mp4" muted autoplay loop></video>
+            <div *ngIf="isMapLoaded" class="media">
+              <video #video [ngStyle]="{'left.px': videoDimensions.left, 
+                      'width': videoDimensions.width == 854 ? videoDimensions.width+'px' : videoDimensions.width+'%'}" 
+                      src="/assets/video/ph_tourism.mp4" muted autoplay loop>
+              </video>
+            </div>
+            
           </div>
           <div *ngIf="showSelection()" class="selection" [ngClass]="toggleForm()">
             <div class="selection-body"

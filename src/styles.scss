@@ -131,23 +131,18 @@ body{
         width:90vw !important;
         //height:80vh !important;
     }
-    .box{
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
+    // .box{
+    //     overflow-x: hidden;
+    //     overflow-y: auto;
+    // }
 
-    .form {
-        & form{
-            //top: 10em !important;
-            //height:100vh !important;
-            // overflow-x: hidden;
-            // overflow-y: auto;
-        }
-    }
 }
 
 // extra Smaller devices extended
-@media (min-width: 540px) { 
+@media (min-width: 540px) {
+    html{
+        font-size: 12px;
+    } 
     .content .body{
         width:90vw !important;
         //height:70vh !important;
@@ -155,7 +150,11 @@ body{
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) { 
+@media (min-width: 576px) {
+    .content .body{
+        width:80vw !important;
+        //height:70vh !important;
+    } 
 
 }
 
@@ -163,6 +162,10 @@ body{
 @media (min-width: 768px) { 
     html{
         font-size: 16px;
+    }
+    .content .body{
+        width:600px !important;
+        //height:500px !important;
     }
 }
 
@@ -173,12 +176,8 @@ body{
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) { 
-    .content .body{
-        width:600px !important;
-        //height:500px !important;
-    }
+    
 }
-
 
 // X-Large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) { 
@@ -188,5 +187,49 @@ body{
 // XX-Large devices (larger desktops, 1400px and up)
 @media (min-width: 1400px) { 
 
+}
+
+
+
+@media (max-width: 800px) and (min-aspect-ratio: 4/3){
+    html, body {
+        height: 100vw;
+    }
+}
+
+@media (min-width: 840px) and (max-aspect-ratio: 2.5) and (min-aspect-ratio: 2){
+    html, body {
+        height: 100vw;
+    }
+}
+
+@media (max-width: 920px) and (max-aspect-ratio: 1){
+    html, body {
+        height: 100vh;
+    }
+}
+
+@media (min-width: 1020px) and (max-aspect-ratio: 4/3){
+    html, body {
+        height: 100vh;
+    }
+}
+
+@media (max-width: 1030px) and (min-aspect-ratio: 1.7){
+    html, body {
+        height: 100vw;
+    }
+}
+
+@media (min-width: 1150px) and (max-aspect-ratio: 4.5/3){
+    html, body {
+        height: 100vh;
+    }
+}
+
+@media (min-width: 1250px) and (max-aspect-ratio: 4.6/3){
+    html, body {
+        height: 100vh;
+    }
 }
 
