@@ -115,11 +115,9 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked{
   }
 
   ngAfterViewInit(){
-    //this.loadElementRef();
     fromEvent(window, 'resize').subscribe( _ => {
       this.loadElementRef()
     })
-    //this.changeRef.detectChanges();
   }
 
   ngAfterViewChecked(){
@@ -128,9 +126,6 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked{
   }
 
   loadElementRef(){
-    console.log(this.box)
-    console.log(this.box.nativeElement.clientHeight)
-    console.log(this.box.nativeElement.offsetHeight)
     this.boxHeight = this.box.nativeElement.clientHeight;
     this.boxWidth = this.box.nativeElement.clientWidth;
     this.videoDimensions['left'] = (this.box.nativeElement.clientWidth - this.videoDimensions['width']) / 2;
