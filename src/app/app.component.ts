@@ -442,26 +442,29 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked{
   }
 
   submitForm(){
-    this.googleMapUrlFinal = '';
     let qAddress = '';
     let weatherQuery = `${this.addressForm.get('city')?.value},${this.addressForm.get('province')?.value}`;
     if(this.addressForm.get('address')?.value){
       qAddress = qAddress.concat(this.addressForm.get('address')?.value)
     }
     qAddress = qAddress.concat(`${this.addressForm.get('barangay')?.value},${this.addressForm.get('city')?.value},${this.addressForm.get('province')?.value}`);
-    this.googleMapUrlFinal = `${this.googleMapUrl}${qAddress}`;
-    this.displayForm = false;
-    this.hasMorePages = false;
-    this.scrollPage = 2;
-
-    this.weather.getCurrentWeather(weatherQuery).subscribe(res => {
+    qAddress = `${this.googleMapUrl}${qAddress}`;
+    if(this.googleMapUrlFinal !== qAddress){
+      this.isMapLoaded = false;
+      this.googleMapUrlFinal = qAddress;
+      this.weather.getCurrentWeather(weatherQuery).subscribe(res => {
         if(res){
           this.weatherData['location'] = weatherQuery;
           this.weatherData['temp'] = `${res.current.temp_c}°C`;
           this.weatherData = { ...this.weatherData, ...res.current.condition};
           this.changeRef.detectChanges();
         }        
-    })
+      })
+    }
+    this.displayForm = false;
+    this.hasMorePages = false;
+    this.scrollPage = 2;
+    this.changeRef.detectChanges();
   }
 
   resetForm(){
