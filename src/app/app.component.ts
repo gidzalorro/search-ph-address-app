@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PhLocationsService } from './ph-locations.service';
 import { HttpParams } from '@angular/common/http';
@@ -12,7 +12,7 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit, AfterViewInit{
+export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked{
   title = 'search-ph-address-app';
   addressForm!:FormGroup;
   displayForm!:boolean;
@@ -115,13 +115,22 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(){
-    this.loadElementRef();
+    //this.loadElementRef();
     fromEvent(window, 'resize').subscribe( _ => {
       this.loadElementRef()
     })
+    //this.changeRef.detectChanges();
+  }
+
+  ngAfterViewChecked(){
+    this.loadElementRef();
+    this.changeRef.detectChanges();
   }
 
   loadElementRef(){
+    console.log(this.box)
+    console.log(this.box.nativeElement.clientHeight)
+    console.log(this.box.nativeElement.offsetHeight)
     this.boxHeight = this.box.nativeElement.clientHeight;
     this.boxWidth = this.box.nativeElement.clientWidth;
     this.videoDimensions['left'] = (this.box.nativeElement.clientWidth - this.videoDimensions['width']) / 2;
