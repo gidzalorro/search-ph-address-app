@@ -127,8 +127,10 @@
               </div>
             </div>
             <div class="selection-footer d-flex justify-content-end my-3 mx-4">
-              <button class="cancel mx-2 my-1 py-2 px-3" type="button" (click)="cancelSelection()">Cancel</button>
-              <button [disabled]="!isSelectionConfirm" class="confirm mx-2 my-1 py-2 px-3" type="button" (click)="confirmSelection()">OK</button>
+              <div class="d-inline">
+                <button class="cancel mx-2 my-1 py-2 px-3" type="button" (click)="cancelSelection()">Cancel</button>
+                <button [disabled]="!isSelectionConfirm" class="confirm mx-2 my-1 py-2 px-3" type="button" (click)="confirmSelection()">OK</button>
+              </div>              
             </div>
           </div>
           <div [hidden]="displayForm" [ngClass]="toggleForm()" class="map">
