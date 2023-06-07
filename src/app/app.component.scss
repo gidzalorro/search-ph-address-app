@@ -32,10 +32,14 @@ button{
     outline: none;
     margin: 0 0.5em ;
     font-weight: 500;
-    &:hover:disabled, &:disabled{
+    // &:hover:disabled, &:disabled{
+    //     cursor: default;
+    //     opacity: 0.7;
+    // }  
+    &:disabled{
         cursor: default;
         opacity: 0.7;
-    }     
+    }    
 }
 
 .content .body{
@@ -147,7 +151,12 @@ button{
     background-color: $white;
     color: $blue-2;
 
-    &:hover, &.active{
+    // &:hover, &.active{
+    //     cursor: pointer;
+    //     color: $cool-white;
+    //     background-color: $blue-2;
+    // }
+    &.active{
         cursor: pointer;
         color: $cool-white;
         background-color: $blue-2;
@@ -239,11 +248,11 @@ button{
             border-bottom-right-radius: 0.375rem;
             background-color: $white;
             box-shadow: inset 0 2px 5px $color-11;
-            &:hover{
-                cursor: pointer;
-                color: $blue-4;
-                box-shadow: inset 0 2px 5px $color-12;
-            }
+            // &:hover{
+            //     cursor: pointer;
+            //     color: $blue-4;
+            //     box-shadow: inset 0 2px 5px $color-12;
+            // }
         }
     }
 }
@@ -286,7 +295,13 @@ button{
         margin: 0 0;
         padding: 0 0;
         overflow: hidden;
-        &:disabled, &:hover:disabled{
+        // &:disabled, &:hover:disabled{
+        //     background-color: $gold;
+        //     box-shadow: 0 2px 5px $black;
+        //     cursor: default;
+        //     opacity: 0.7;
+        // }
+        &:disabled{
             background-color: $gold;
             box-shadow: 0 2px 5px $black;
             cursor: default;
@@ -297,11 +312,11 @@ button{
         background-color: $gold;
         box-shadow: 0 2px 5px $black;
         border-radius: 0.3em;
-        &:hover{
-            cursor: pointer;
-            background-color: $golden-yellow;
-            box-shadow: inset 0 2px 5px $black;
-        }
+        // &:hover{
+        //     cursor: pointer;
+        //     background-color: $golden-yellow;
+        //     box-shadow: inset 0 2px 5px $black;
+        // }
     }
 }
 
@@ -315,10 +330,10 @@ button{
     color: $gold;
     background-color: $cool-white;
     box-shadow: 0 2px 5px $color-11;
-    &:hover{
-        color: $golden-yellow;
-        box-shadow: inset 0 2px 5px $color-12;
-    }   
+    // &:hover{
+    //     color: $golden-yellow;
+    //     box-shadow: inset 0 2px 5px $color-12;
+    // }   
 }
 
 .search, .confirm {
@@ -326,12 +341,19 @@ button{
     color: $cool-white;
     background-color: $gold;
     box-shadow: 0 2px 5px $color-11;
-    &:hover{
-        color: $white;
-        background-color: $golden-yellow;
-        box-shadow: inset 0 2px 5px $color-12;
-    }
-    &:disabled, &:hover:disabled{
+    // &:hover{
+    //     color: $white;
+    //     background-color: $golden-yellow;
+    //     box-shadow: inset 0 2px 5px $color-12;
+    // }
+    // &:disabled, &:hover:disabled{
+    //     color: $cool-white;
+    //     background-color: $gold;
+    //     box-shadow: 0 2px 5px $color-11;
+    //     cursor: default;
+    //     opacity: 0.7;
+    // }
+    &:disabled{
         color: $cool-white;
         background-color: $gold;
         box-shadow: 0 2px 5px $color-11;
