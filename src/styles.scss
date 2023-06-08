@@ -30,7 +30,9 @@ $canberry: #950714;
 body{
     height: 100vh;
     font-family: 'Rubik', sans-serif !important;
-    background-image: linear-gradient(to top right, $blue-1, $blue-4, $blue-2); 
+    background-image: linear-gradient(to top right, $blue-1 25%, $blue-4 65%, $blue-2 100%); 
+    background-size: 200% 200%;
+    animation: animate-bg 20s ease-in-out infinite;
 }
 
 .up{
@@ -39,6 +41,15 @@ body{
 
 .down{
     animation: goingdown 0.5s;
+}
+
+@keyframes animate-bg {
+    0%, 100% {
+        background-position: 0% 80%;
+    }
+    50% {
+        background-position: 100% 20%;
+    }
 }
 
 
